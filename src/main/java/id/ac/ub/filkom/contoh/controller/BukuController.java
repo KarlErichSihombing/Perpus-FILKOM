@@ -30,9 +30,15 @@ public class BukuController {
     @PostMapping("/buku")
     public String tambahBuku(@RequestParam String idBuku,
                              @RequestParam String judul,
-                             @RequestParam int stok) {
-        bukuService.tambahBuku(idBuku, judul, stok);
-        return "redirect:/buku";     // pola Post-Redirect-Get
+                             @RequestParam int stok,
+                             Model model) {
+        try {
+            bukuService.tambahBuku(idBuku, judul, stok);
+            return "redirect:/buku";     // pola Post-Redirect-Get
+        } catch (IllegalArgumentException e) {
+            model.addAttribute("pesan", e.getMessage());
+            return "tambah-buku";        // tampilkan form lagi + pesan
+        }
     }
     
     

@@ -25,9 +25,16 @@ public class BukuService {
     }
 
     public Buku tambahBuku(String idBuku, String judul, int stok) {
+        if (idBuku == null || idBuku.isBlank() || judul == null || judul.isBlank()) {
+            throw new IllegalArgumentException("ID dan judul buku wajib diisi");
+        }
         if (stok < 0) {
             throw new IllegalArgumentException("Stok tidak boleh negatif");
         }
-        return bukuRepository.save(new Buku(idBuku, judul, stok));
+        // save() pada ID yang sudah ada akan menimpa data lama, jadi tolak dulu
+        if (bukuRepository.existsById(idBuku.trim())) {
+            throw new IllegalArgumentException("ID buku " + idBuku.trim() + " sudah dipakai");
+        }
+        return bukuRepository.save(new Buku(idBuku.trim(), judul.trim(), stok));
     }
 }

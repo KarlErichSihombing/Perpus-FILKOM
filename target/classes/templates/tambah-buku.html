@@ -22,14 +22,16 @@
     <h1>Tambah buku</h1>
     <p class="subtitle">Isi data buku baru, lalu simpan.</p>
 
+    <div class="alert" th:if="${pesan}" role="alert" th:text="${pesan}">Pesan error</div>
+
     <form class="form-card" th:action="@{/buku}" method="post">
         <div class="field">
             <label for="idBuku">ID buku</label>
-            <input id="idBuku" name="idBuku" placeholder="Contoh: B004" required>
+            <input id="idBuku" name="idBuku" placeholder="Contoh: B004" maxlength="10" required>
         </div>
         <div class="field">
             <label for="judul">Judul</label>
-            <input id="judul" name="judul" placeholder="Judul buku" required>
+            <input id="judul" name="judul" placeholder="Judul buku" maxlength="200" required>
         </div>
         <div class="field">
             <label for="stok">Stok</label>
