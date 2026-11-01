@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="id" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Pinjam Buku</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<header class="topbar">
+    <div class="topbar-inner">
+        <span class="brand">Perpustakaan FILKOM</span>
+        <nav class="nav">
+            <a th:href="@{/buku}">Buku</a>
+            <a th:href="@{/pinjam}" class="active">Pinjam</a>
+            <a th:href="@{/anggota}">Anggota</a>
+        </nav>
+        <span class="user-chip">Anggota <span th:text="${idAnggota}">A001</span></span>
+    </div>
+</header>
+
+<main class="container">
+    <h1>Pinjam buku</h1>
+    <p class="subtitle">Pilih buku yang ingin kamu pinjam.</p>
+
+    <!-- Alur alternatif [13]-[14]: pesan gagal + opsi reservasi -->
+    <div class="alert" th:if="${pesan}" role="alert">
+        <span th:text="${pesan}">Stok buku habis</span>
+        <!-- «extend» Ajukan Reservasi, pesan [1]: ajukanReservasi(idBuku) -->
+        <form th:if="${bisaReservasi}" th:action="@{/reservasi}" method="post" style="display:inline">
+            <input type="hidden" name="idBuku" th:value="${idBukuGagal}">
+            <button type="submit" class="btn">Ajukan reservasi</button>
+        </form>
+    </div>
+
+    <div class="list">
+        <div class="book" th:each="b : ${daftarBuku}">
+            <div>
+                <div class="book-title" th:text="${b.judul}">Judul buku</div>
+                <div class="book-meta">
+                    Stok
+                    <span class="badge"
+                          th:classappend="${b.stok == 0} ? 'badge-bad' : (${b.stok <= 2} ? 'badge-warn' : 'badge-ok')"
+                          th:text="${b.stok == 0} ? 'Habis' : ${b.stok} + ' tersedia'">3 tersedia</span>
+                </div>
+            </div>
+            <!-- Pesan [1]: pilihBuku(idBuku) -->
+            <form th:action="@{/pinjam}" method="post">
+                <input type="hidden" name="idBuku" th:value="${b.idBuku}">
+                <button type="submit" class="btn">Pinjam</button>
+            </form>
+        </div>
+        <p class="empty" th:if="${#lists.isEmpty(daftarBuku)}">Belum ada buku di katalog.</p>
+    </div>
+</main>
+</body>
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="id" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Kelola Stok Buku</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<header class="topbar">
+    <div class="topbar-inner">
+        <span class="brand">Perpustakaan FILKOM</span>
+        <nav class="nav">
+            <a th:href="@{/buku}">Buku</a>
+            <a th:href="@{/pinjam}">Pinjam</a>
+            <a th:href="@{/stok}" class="active">Stok</a>
+            <a th:href="@{/anggota}">Anggota</a>
+        </nav>
+        <span class="user-chip">Pustakawan</span>
+    </div>
+</header>
+
+<main class="container">
+    <h1>Kelola stok buku</h1>
+    <p class="subtitle">Tambahkan stok untuk buku yang sudah ada di katalog.</p>
+
+    <!-- Pesan [11]: alur gagal -->
+    <div class="alert" th:if="${pesan}" role="alert" th:text="${pesan}">Pesan gagal</div>
+    <!-- Pesan [9]: alur berhasil -->
+    <div class="alert alert-ok" th:if="${sukses}" role="status" th:text="${sukses}">Stok bertambah</div>
+
+    <div class="list">
+        <div class="book" th:each="b : ${daftarBuku}">
+            <div>
+                <div class="book-title" th:text="${b.judul}">Judul buku</div>
+                <div class="book-meta">
+                    <span th:text="${b.idBuku}">B001</span> ·
+                    Stok
+                    <span class="badge"
+                          th:classappend="${b.stok == 0} ? 'badge-bad' : (${b.stok <= 2} ? 'badge-warn' : 'badge-ok')"
+                          th:text="${b.stok}">3</span>
+                </div>
+            </div>
+            <!-- Pesan [1]: tambahStok(idBuku, jumlah) -->
+            <form th:action="@{/stok/tambah}" method="post">
+                <input type="hidden" name="idBuku" th:value="${b.idBuku}">
+                <input type="number" name="jumlah" min="1" value="1" aria-label="Jumlah tambahan stok" required>
+                <button type="submit" class="btn">Tambah</button>
+            </form>
+        </div>
+        <p class="empty" th:if="${#lists.isEmpty(daftarBuku)}">Belum ada buku di katalog.</p>
+    </div>
+</main>
+</body>
+</html>

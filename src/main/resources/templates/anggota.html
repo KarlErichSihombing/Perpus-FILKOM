@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="id" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Daftar Anggota</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<header class="topbar">
+    <div class="topbar-inner">
+        <span class="brand">Perpustakaan FILKOM</span>
+        <nav class="nav">
+            <a th:href="@{/buku}">Buku</a>
+            <a th:href="@{/pinjam}">Pinjam</a>
+            <a th:href="@{/anggota}" class="active">Anggota</a>
+        </nav>
+    </div>
+</header>
+
+<main class="container">
+    <div class="page-head">
+        <div>
+            <h1>Daftar anggota</h1>
+            <p class="subtitle">Anggota perpustakaan beserta batas pinjamannya.</p>
+        </div>
+        <div class="actions">
+            <a class="btn btn-ghost" th:href="@{/buku}">Ke daftar buku</a>
+        </div>
+    </div>
+
+    <p class="empty" th:if="${#lists.isEmpty(daftarAnggota)}">Belum ada anggota.</p>
+
+    <div class="list" th:unless="${#lists.isEmpty(daftarAnggota)}">
+        <div class="book" th:each="a : ${daftarAnggota}">
+            <div class="member">
+                <span class="avatar" aria-hidden="true" th:text="${#strings.substring(a.nama, 0, 1)}">N</span>
+                <div>
+                    <div class="book-title" th:text="${a.nama}">Nama</div>
+                    <div class="book-meta" th:text="${a.idAnggota}">A001</div>
+                </div>
+            </div>
+            <span class="badge badge-ok" th:text="'Maks. ' + ${a.batasPinjam} + ' buku'">Maks. 2 buku</span>
+        </div>
+    </div>
+</main>
+</body>
+</html>

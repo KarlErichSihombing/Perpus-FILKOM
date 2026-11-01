@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="id" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Reservasi Buku</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<header class="topbar">
+    <div class="topbar-inner">
+        <span class="brand">Perpustakaan FILKOM</span>
+        <nav class="nav">
+            <a th:href="@{/buku}">Buku</a>
+            <a th:href="@{/pinjam}" class="active">Pinjam</a>
+            <a th:href="@{/anggota}">Anggota</a>
+        </nav>
+    </div>
+</header>
+
+<main class="container">
+    <h1>Reservasi buku</h1>
+
+    <!-- Pesan [15]: alur gagal -->
+    <div class="alert" th:if="${pesan}" role="alert" th:text="${pesan}">Reservasi gagal</div>
+
+    <!-- Pesan [13]: tampilkan bukti reservasi -->
+    <div class="form-card" th:if="${bukti}">
+        <p class="subtitle">Reservasi berhasil diajukan.</p>
+        <table>
+            <tr><td>No. Reservasi</td><td th:text="${bukti.idReservasi}">R0001</td></tr>
+            <tr><td>Anggota</td><td th:text="${bukti.namaAnggota}">Nama</td></tr>
+            <tr><td>Buku</td><td th:text="${bukti.judulBuku}">Judul</td></tr>
+            <tr><td>Tanggal</td><td th:text="${bukti.tanggalReservasi}">2026-11-01</td></tr>
+            <tr><td>Status</td><td th:text="${bukti.status}">AKTIF</td></tr>
+        </table>
+    </div>
+
+    <div class="form-actions">
+        <a class="btn btn-ghost" th:href="@{/pinjam}">Kembali</a>
+    </div>
+</main>
+</body>
+</html>
