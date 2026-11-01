@@ -1,5 +1,19 @@
-/** Unit test method entity yang dipanggil control pada sequence. */
+package id.ac.ub.filkom.contoh;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import org.junit.jupiter.api.Test;
+
+import id.ac.ub.filkom.contoh.entity.Anggota;
+import id.ac.ub.filkom.contoh.entity.Buku;
+import id.ac.ub.filkom.contoh.entity.TransaksiPinjam;
+
+/** Unit test method entity yang dipanggil control pada sequence (tanpa database/server). */
 class PinjamEntityTest {
+
     @Test
     void cekStok_dan_kurangiStok() {
         Buku buku = new Buku("B001", "Pemrograman Java", 1);
@@ -9,11 +23,13 @@ class PinjamEntityTest {
         assertFalse(buku.cekStok());
         assertThrows(IllegalStateException.class, buku::kurangiStok);
     }
+
     @Test
     void cekBatasPinjam_menolak_jika_sudah_mencapai_batas() {
         Anggota anggota = new Anggota("A002", "Sari Dewi", 1);
         Buku buku = new Buku("B003", "Basis Data", 2);
         assertTrue(anggota.cekBatasPinjam());
+
         TransaksiPinjam t = TransaksiPinjam.buat(anggota, buku);
         assertEquals(TransaksiPinjam.DIPINJAM, t.getStatus());
         assertFalse(anggota.cekBatasPinjam());

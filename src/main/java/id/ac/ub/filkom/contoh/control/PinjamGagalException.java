@@ -1,29 +1,35 @@
 package id.ac.ub.filkom.contoh.control;
 
+/** Alur gagal pada use case Pinjam Buku. Ditangkap oleh boundary lalu ditampilkan sebagai pesan. */
 public class PinjamGagalException extends RuntimeException {
-    
-    // Constructor utama
+
+    private final boolean bisaReservasi;
+
     public PinjamGagalException(String message) {
-        super(message);
+        this(message, false);
     }
 
-    // [1] Method untuk alur data tidak ditemukan
+    public PinjamGagalException(String message, boolean bisaReservasi) {
+        super(message);
+        this.bisaReservasi = bisaReservasi;
+    }
+
+    /** Data tidak ditemukan (validasi input). */
     public static PinjamGagalException tidakDitemukan(String entitas) {
         return new PinjamGagalException(entitas + " tidak ditemukan!");
     }
 
-    // [2] Method untuk alur melewatiBatas() [Alur 4b]
+    /** Alur 4b: melewati batas pinjam. */
     public static PinjamGagalException melewatiBatas() {
         return new PinjamGagalException("Peminjaman gagal! Anggota telah melewati batas maksimal pinjam.");
     }
 
-    // [3] Method untuk alur stokHabis() [Alur 13]
+    /** Alur 4a / pesan [13]: stok habis, pengguna boleh mengajukan reservasi. */
     public static PinjamGagalException stokHabis() {
-        return new PinjamGagalException("Peminjaman gagal! Stok buku habis.");
+        return new PinjamGagalException("Peminjaman gagal! Stok buku habis.", true);
     }
 
     public boolean isBisaReservasi() {
-        return this.getMessage() != null && this.getMessage().contains("Stok");
+        return bisaReservasi;
     }
 }
-
