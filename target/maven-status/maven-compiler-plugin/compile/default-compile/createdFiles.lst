@@ -1,0 +1,15 @@
+id\ac\ub\filkom\contoh\repository\BukuRepository.class
+id\ac\ub\filkom\contoh\entity\TransaksiPinjam.class
+id\ac\ub\filkom\contoh\service\AnggotaService.class
+id\ac\ub\filkom\contoh\service\BukuService.class
+id\ac\ub\filkom\contoh\control\Bukti.class
+id\ac\ub\filkom\contoh\controller\AnggotaController.class
+id\ac\ub\filkom\contoh\repository\TransaksiPinjamRepository.class
+id\ac\ub\filkom\contoh\control\PinjamService.class
+id\ac\ub\filkom\contoh\control\PinjamGagalException.class
+id\ac\ub\filkom\contoh\entity\Buku.class
+id\ac\ub\filkom\contoh\boundary\HalamanPinjamController.class
+id\ac\ub\filkom\contoh\controller\BukuController.class
+id\ac\ub\filkom\contoh\entity\Anggota.class
+id\ac\ub\filkom\contoh\repository\AnggotaRepository.class
+id\ac\ub\filkom\contoh\ContohApplication.class

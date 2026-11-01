@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="id" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bukti Peminjaman</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<header class="topbar">
+    <div class="topbar-inner">
+        <span class="brand">Perpustakaan FILKOM</span>
+        <nav class="nav">
+            <a th:href="@{/buku}">Buku</a>
+            <a th:href="@{/pinjam}" class="active">Pinjam</a>
+            <a th:href="@{/anggota}">Anggota</a>
+        </nav>
+    </div>
+</header>
+
+<main class="container">
+    <!-- Pesan [12]: tampilkan bukti -->
+    <section class="receipt">
+        <div class="receipt-head">
+            <div class="check" aria-hidden="true">✓</div>
+            <h1>Peminjaman berhasil</h1>
+            <p class="subtitle">Simpan bukti ini sebagai referensi.</p>
+        </div>
+
+        <dl class="rows">
+            <div><dt>No. transaksi</dt><dd th:text="${bukti.idTransaksi}">T0001</dd></div>
+            <div><dt>Anggota</dt><dd th:text="${bukti.namaAnggota}">Nama</dd></div>
+            <div><dt>Buku</dt><dd th:text="${bukti.judulBuku}">Judul</dd></div>
+            <div><dt>Tanggal pinjam</dt><dd th:text="${bukti.tanggalPinjam}">2026-10-25</dd></div>
+            <div><dt>Status</dt><dd><span class="badge badge-ok" th:text="${bukti.status}">DIPINJAM</span></dd></div>
+        </dl>
+
+        <div class="receipt-actions">
+            <a class="btn" th:href="@{/pinjam}">Pinjam buku lain</a>
+        </div>
+    </section>
+</main>
+</body>
+</html>
